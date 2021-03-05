@@ -5,6 +5,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: #0070f3;
 }
 
 .main {
@@ -78,6 +79,7 @@
   flex-wrap: wrap;
   max-width: 800px;
   margin-top: 3rem;
+  background-color: aqua;
 }
 
 .card {

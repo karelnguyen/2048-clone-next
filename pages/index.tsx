@@ -1,11 +1,36 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import Head from "next/head"
+import styles from "../styles/Home.module.css"
+import { useEffect } from "react"
+import { useSwipeable } from "react-swipeable"
+import { useGame } from "../hooks/GameProvider/useGame"
+import { Direction } from "../lib/Game/types"
 
 export default function Home() {
+  const { game, handleStart, handleMove } = useGame()
+
+  const handlers = useSwipeable({
+    onSwipedLeft: () => handleMove(Direction.LEFT, game),
+    onSwipedRight: () => handleMove(Direction.RIGHT, game),
+    onSwipedDown: () => handleMove(Direction.DOWN, game),
+    onSwipedUp: () => handleMove(Direction.UP, game),
+    preventDefaultTouchmoveEvent: true,
+    trackMouse: true,
+  })
+
+  useEffect(() => {
+    window.addEventListener("keydown", (event) => {
+      // ...
+      console.log("event", event)
+    })
+  }, [])
+
+  console.log("Homegame", game?.board)
+  console.log("score", game?.score)
+
   return (
     <div className={styles.container}>
       <Head>
-        <title>Create Next App</title>
+        <title>2048 clone in Next.js</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -13,13 +38,14 @@ export default function Home() {
         <h1 className={styles.title}>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
+        <button onClick={handleStart}>start</button>
 
         <p className={styles.description}>
-          Get started by editing{' '}
+          Get started by editing{" "}
           <code className={styles.code}>pages/index.js</code>
         </p>
 
-        <div className={styles.grid}>
+        <div className={styles.grid} {...handlers}>
           <a href="https://nextjs.org/docs" className={styles.card}>
             <h3>Documentation &rarr;</h3>
             <p>Find in-depth information about Next.js features and API.</p>
@@ -56,7 +82,7 @@ export default function Home() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
+          Powered by{" "}
           <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
         </a>
       </footer>
