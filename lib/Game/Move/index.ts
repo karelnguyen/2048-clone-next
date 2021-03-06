@@ -3,7 +3,7 @@ import { moveUp } from "./moveUp"
 import { moveRight } from "./moveRight"
 import { moveDown } from "./moveDown"
 import { moveLeft } from "./moveLeft"
-import { getBlankCoordinates, placeRandomNumber } from "../Board"
+import { placeRandomNumber, hasBoardChanged } from "../Board"
 
 const nextResultByDirection = (
   board: Board,
@@ -19,25 +19,37 @@ const nextResultByDirection = (
   return resultMapper.get(direction)
 }
 
+export const hasOtherMoves = (board: Board): boolean => {
+  const moves = [
+    hasBoardChanged(board, moveUp(board, Direction.UP).board),
+    hasBoardChanged(board, moveDown(board, Direction.DOWN).board),
+    hasBoardChanged(board, moveLeft(board, Direction.LEFT).board),
+    hasBoardChanged(board, moveRight(board, Direction.RIGHT).board),
+  ]
+
+  return moves.includes(true)
+}
+
 export const move = (direction: Direction, game: Game): Game => {
-  const gameIsFinished = game.gameStatus === GameStatus.FINISHED
-
-  if (gameIsFinished) return game
-
+  const isGameFinished = game.gameStatus === GameStatus.FINISHED
   const { board, score } = nextResultByDirection(game.board, direction)
-  const blankCoordinates = getBlankCoordinates(board)
+  const hasChanged = hasBoardChanged(game.board, board)
 
-  if (!blankCoordinates.length) {
+  if (!hasChanged || isGameFinished) return game
+
+  const newBoard = placeRandomNumber(board)
+  const canContinue = hasOtherMoves(newBoard)
+
+  if (!canContinue) {
     return {
-      ...game,
+      score: game.score,
+      board: board,
       gameStatus: GameStatus.FINISHED,
     }
   }
 
-  const newBoard = placeRandomNumber(board)
-
   return {
-    score,
+    score: game.score + score,
     board: newBoard,
     gameStatus: GameStatus.STARTED,
   }

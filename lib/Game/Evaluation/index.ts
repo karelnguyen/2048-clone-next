@@ -5,7 +5,6 @@ export const evaluateMove = (
   direction: Direction
 ): GameResult => {
   const isNegative = [Direction.UP, Direction.RIGHT].includes(direction)
-
   let score = 0
 
   for (let r = 0; r < board.length; r++) {

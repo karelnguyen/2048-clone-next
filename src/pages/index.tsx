@@ -1,7 +1,7 @@
 import Head from "next/head"
 import styles from "../styles/Home.module.css"
 import { useSwipeable } from "react-swipeable"
-import { useGame } from "./GameProvider/useGame"
+import { useGame } from "../hooks/GameProvider/useGame"
 import { Direction } from "../../lib/Game/types"
 import styled from "styled-components"
 
@@ -16,8 +16,7 @@ export default function Home() {
     preventDefaultTouchmoveEvent: true,
     trackMouse: true,
   })
-
-  console.table(game?.board)
+  console.log("game", game)
 
   return (
     <div className={styles.container}>
@@ -60,11 +59,16 @@ const Cell = ({ cellValue }) => {
 
   return (
     <td>
-      <Title>{value}</Title>
+      <Tile>{value}</Tile>
     </td>
   )
 }
 
-const Title = styled.h1`
-  color: red;
+const Tile = styled.div`
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
 `

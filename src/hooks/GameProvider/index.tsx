@@ -21,9 +21,9 @@ const GameProvider: React.FC = ({ children }) => {
   const [game, _setGame] = React.useState<Game>()
   const gameRef = React.useRef(game)
 
-  const updateGame = (data: Game) => {
-    gameRef.current = data
-    _setGame(data)
+  const updateGame = (game: Game) => {
+    gameRef.current = game
+    _setGame(game)
   }
 
   const handleStart = () => {

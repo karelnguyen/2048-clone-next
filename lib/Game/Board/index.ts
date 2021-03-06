@@ -75,6 +75,8 @@ export const getBlankCoordinates = (board: Board): Board => {
 
 export const placeRandomNumber = (board: Board): Board => {
   const blankCoordinates = getBlankCoordinates(board)
+  if (!blankCoordinates.length) return board
+
   const randomCoordinate =
     blankCoordinates[Math.floor(Math.random() * blankCoordinates.length)]
 
@@ -85,3 +87,7 @@ export const placeRandomNumber = (board: Board): Board => {
 
 export const getRandomizedBoard = (board: Board): Board =>
   placeRandomNumber(placeRandomNumber(board))
+
+export const hasBoardChanged = (original: Board, updated: Board): boolean => {
+  return JSON.stringify(updated) !== JSON.stringify(original) ? true : false
+}
