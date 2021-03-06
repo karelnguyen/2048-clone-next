@@ -73,4 +73,22 @@ describe("Test moves with direction and mocked game", () => {
     expect(score).toBe(46)
     expect(gameStatus).toBe(GameStatus.STARTED)
   })
+
+  test("No new moves", () => {
+    const initialBoard = [
+      [2, 2, 0, 4],
+      [0, 0, 0, 0],
+      [0, 0, 0, 0],
+      [0, 0, 0, 0],
+    ]
+    const game: Game = {
+      board: initialBoard,
+      gameStatus: GameStatus.FINISHED,
+      score: 42,
+    }
+    const { gameStatus, score } = move(Direction.RIGHT, game)
+
+    expect(score).toBe(42)
+    expect(gameStatus).toBe(GameStatus.FINISHED)
+  })
 })

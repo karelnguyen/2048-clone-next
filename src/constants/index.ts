@@ -1,6 +1,13 @@
 export const colors = {
   mainBackground: "#FAF8EF",
   boardBackground: "#BBADA0",
+  button: {
+    default: "#8F7A66",
+  },
+  fonts: {
+    dark: "#776E65",
+    light: "#FAF8EF",
+  },
   tile: {
     default: "#cdc1b4",
     2: "#eee4da",
@@ -16,3 +23,5 @@ export const colors = {
     biggest: "#edc22e",
   },
 }
+
+export const API_URL = "https://shoptet-2048.herokuapp.com/admin/api"

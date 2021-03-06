@@ -1,5 +1,7 @@
 import styled from "styled-components"
-import { colors } from "../../constants"
+import { colors } from "../../../constants"
+
+const tileSize = 100
 
 const mapValueColor = (value: number) => {
   if (value === 0) return colors.tile.default
@@ -8,13 +10,18 @@ const mapValueColor = (value: number) => {
   return colors.tile[value]
 }
 
+const mapFontColor = (value: number) => {
+  return value < 16 ? colors.fonts.dark : colors.fonts.light
+}
+
 export const StyledTile = styled.div<{ value: number }>`
-  width: 100px;
-  height: 100px;
+  width: ${tileSize}px;
+  height: ${tileSize}px;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 40px;
+  color: ${({ value }) => mapFontColor(value)};
+  font-size: ${tileSize / 2}px;
   font-weight: 600;
   background-color: ${({ value }) => mapValueColor(value)};
   border-radius: 5px;
