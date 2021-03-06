@@ -1,7 +1,6 @@
 export enum GameStatus {
   STARTED = "STARTED",
   FINISHED = "FINISHED",
-  READY = "READY",
 }
 
 export enum Direction {

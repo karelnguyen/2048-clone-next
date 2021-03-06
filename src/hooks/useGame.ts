@@ -1,6 +1,6 @@
 import * as React from "react"
 import { startGame, move } from "../../lib/GameFactory"
-import { Direction, Game, GameStatus } from "../../lib/GameFactory/types"
+import { Direction, Game } from "../../lib/GameFactory/types"
 
 enum EventKeyCodes {
   UP = "ArrowUp",
@@ -17,16 +17,7 @@ const directionMapper = {
 }
 
 const useGame = () => {
-  const [game, _setGame] = React.useState<Game>({
-    board: [
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
-    ],
-    gameStatus: GameStatus.READY,
-    score: 0,
-  })
+  const [game, _setGame] = React.useState<Game>()
   const gameRef = React.useRef(game)
 
   const updateGame = (game: Game) => {
@@ -59,6 +50,10 @@ const useGame = () => {
   React.useEffect(() => {
     window.addEventListener("keydown", eventHandler)
   }, [])
+
+  React.useEffect(() => {
+    if (!game) updateGame(startGame())
+  }, [game])
 
   return { game, handleStart, handleMove }
 }

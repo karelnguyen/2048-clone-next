@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import { colors } from "../constants"
 
 export const Main = styled.div`
   width: 100vw;
@@ -6,4 +7,5 @@ export const Main = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: ${colors.mainBackground};
 `

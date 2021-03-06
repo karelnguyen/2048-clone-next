@@ -1,4 +1,4 @@
-import { getRandomizedBoard } from "../Board"
+import { getDefaultBoard } from "../Board"
 import { Board, Game, GameStatus } from "../types"
 
 export const startGame = (
@@ -9,7 +9,7 @@ export const startGame = (
     [0, 0, 0, 0],
   ]
 ): Game => ({
-  board: getRandomizedBoard(board),
+  board: getDefaultBoard(board),
   gameStatus: GameStatus.STARTED,
   score: 0,
 })

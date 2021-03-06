@@ -1,7 +1,7 @@
 import {
   hasBoardChanged,
   getBlankCoordinates,
-  getRandomizedBoard,
+  getDefaultBoard,
   placeRandomNumber,
   shiftToRight,
   shiftToLeft,
@@ -179,8 +179,8 @@ describe("Test Board functions", () => {
     ])
   })
 
-  test("getRandomizedBoard fn - get board with two random values", () => {
-    const result = getRandomizedBoard([
+  test("getDefaultBoard fn - get board with two random values", () => {
+    const result = getDefaultBoard([
       [0, 0, 0, 0],
       [0, 0, 0, 0],
       [0, 0, 0, 0],

@@ -85,7 +85,7 @@ export const placeRandomNumber = (board: Board): Board => {
   return board
 }
 
-export const getRandomizedBoard = (board: Board): Board =>
+export const getDefaultBoard = (board: Board): Board =>
   placeRandomNumber(placeRandomNumber(board))
 
 export const hasBoardChanged = (original: Board, updated: Board): boolean => {
