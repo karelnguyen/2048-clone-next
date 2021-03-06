@@ -1,7 +1,6 @@
 import * as React from "react"
-import { GameContext } from "./GameContext"
-import { startGame, move } from "../../../lib/Game"
-import { Game, Direction } from "../../../lib/Game/types"
+import { startGame, move } from "../../lib/GameFactory"
+import { Direction, Game, GameStatus } from "../../lib/GameFactory/types"
 
 enum EventKeyCodes {
   UP = "ArrowUp",
@@ -17,8 +16,17 @@ const directionMapper = {
   [EventKeyCodes.RIGHT]: Direction.RIGHT,
 }
 
-const GameProvider: React.FC = ({ children }) => {
-  const [game, _setGame] = React.useState<Game>()
+const useGame = () => {
+  const [game, _setGame] = React.useState<Game>({
+    board: [
+      [0, 0, 0, 0],
+      [0, 0, 0, 0],
+      [0, 0, 0, 0],
+      [0, 0, 0, 0],
+    ],
+    gameStatus: GameStatus.READY,
+    score: 0,
+  })
   const gameRef = React.useRef(game)
 
   const updateGame = (game: Game) => {
@@ -37,7 +45,14 @@ const GameProvider: React.FC = ({ children }) => {
   }
 
   const eventHandler = (event) => {
-    if (gameRef.current)
+    const isMove = [
+      Direction.UP,
+      Direction.LEFT,
+      Direction.DOWN,
+      Direction.RIGHT,
+    ].includes(directionMapper[event.code])
+
+    if (gameRef.current && isMove && event.code)
       return handleMove(directionMapper[event.code], gameRef.current)
   }
 
@@ -45,11 +60,7 @@ const GameProvider: React.FC = ({ children }) => {
     window.addEventListener("keydown", eventHandler)
   }, [])
 
-  return (
-    <GameContext.Provider value={{ game, handleStart, handleMove }}>
-      {children}
-    </GameContext.Provider>
-  )
+  return { game, handleStart, handleMove }
 }
 
-export default GameProvider
+export default useGame

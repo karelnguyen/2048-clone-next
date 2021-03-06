@@ -1,13 +1,8 @@
-import "../styles/globals.css"
 import type { AppProps /*, AppContext */ } from "next/app"
-import GameProvider from "../hooks/GameProvider"
+import "../styles/globals.css"
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return (
-    <GameProvider>
-      <Component {...pageProps} />
-    </GameProvider>
-  )
+const MyApp = ({ Component, pageProps }: AppProps) => {
+  return <Component {...pageProps} />
 }
 
 export default MyApp

@@ -163,7 +163,7 @@ describe("Test Board functions", () => {
     ])
   })
 
-  test("rotateRight fn - rotate board matrix left", () => {
+  test("rotateRight fn - rotate board matrix right", () => {
     const result = rotateRight([
       [2, 2, 0, 4],
       [0, 0, 0, 0],

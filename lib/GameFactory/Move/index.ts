@@ -31,14 +31,14 @@ export const hasOtherMoves = (board: Board): boolean => {
 }
 
 export const move = (direction: Direction, game: Game): Game => {
-  const isGameFinished = game.gameStatus === GameStatus.FINISHED
+  const isGameRunning = game.gameStatus === GameStatus.STARTED
   const { board, score } = nextResultByDirection(game.board, direction)
   const hasChanged = hasBoardChanged(game.board, board)
 
-  if (!hasChanged || isGameFinished) return game
+  if (!hasChanged || !isGameRunning) return game
 
-  const newBoard = placeRandomNumber(board)
-  const canContinue = hasOtherMoves(newBoard)
+  const nextBoard = placeRandomNumber(board)
+  const canContinue = hasOtherMoves(nextBoard)
 
   if (!canContinue) {
     return {
@@ -50,7 +50,7 @@ export const move = (direction: Direction, game: Game): Game => {
 
   return {
     score: game.score + score,
-    board: newBoard,
+    board: nextBoard,
     gameStatus: GameStatus.STARTED,
   }
 }
