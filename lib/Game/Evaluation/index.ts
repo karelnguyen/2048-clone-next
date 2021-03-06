@@ -1,7 +1,11 @@
-import { Board, Direction } from "../types"
+import { Board, Direction, GameResult } from "../types"
 
-export const evaluateMove = (board: Board, direction: Direction) => {
-  const isNegative = direction === Direction.UP || direction === Direction.RIGHT
+export const evaluateMove = (
+  board: Board,
+  direction: Direction
+): GameResult => {
+  const isNegative = [Direction.UP, Direction.RIGHT].includes(direction)
+
   let score = 0
 
   for (let r = 0; r < board.length; r++) {

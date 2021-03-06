@@ -17,3 +17,5 @@ export type Game = {
   score: number
   gameStatus: GameStatus
 }
+
+export type GameResult = Omit<Game, "gameStatus">

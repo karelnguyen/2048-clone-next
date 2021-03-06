@@ -1,5 +1,5 @@
 import * as React from "react"
-import { Game, Direction } from "../../lib/Game/types"
+import { Game, Direction } from "../../../lib/Game/types"
 
 export interface GameContextValues {
   game: Game

@@ -1,6 +1,6 @@
 import "../styles/globals.css"
 import type { AppProps /*, AppContext */ } from "next/app"
-import GameProvider from "../hooks/GameProvider"
+import GameProvider from "./GameProvider"
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

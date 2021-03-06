@@ -1,7 +1,7 @@
 import { Board } from "../types"
 import { randomStartingNumber } from "./utils"
 
-export const rotateRight = (board: Board) => {
+export const rotateRight = (board: Board): Board => {
   let result = []
 
   for (let c = 0; c < board.length; c++) {
@@ -59,7 +59,7 @@ export const shiftToLeft = (board: Board): Board => {
   return newBoard
 }
 
-const getBlankCoordinates = (board: Board): Board => {
+export const getBlankCoordinates = (board: Board): Board => {
   const blankCoordinates = []
 
   for (let r = 0; r < board.length; r++) {
@@ -73,7 +73,7 @@ const getBlankCoordinates = (board: Board): Board => {
   return blankCoordinates
 }
 
-const placeRandom = (board: Board): Board => {
+export const placeRandomNumber = (board: Board): Board => {
   const blankCoordinates = getBlankCoordinates(board)
   const randomCoordinate =
     blankCoordinates[Math.floor(Math.random() * blankCoordinates.length)]
@@ -84,4 +84,4 @@ const placeRandom = (board: Board): Board => {
 }
 
 export const getRandomizedBoard = (board: Board): Board =>
-  placeRandom(placeRandom(board))
+  placeRandomNumber(placeRandomNumber(board))
