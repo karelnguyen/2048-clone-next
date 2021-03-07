@@ -3,8 +3,6 @@ import { ApolloProvider } from '@apollo/client';
 
 import { AUTHENTICATE_USER_MUTATION } from 'gql/api/mutations/authenticateUser';
 import {
-  AuthenticatedUserQuery,
-  AuthenticatedUserQueryVariables,
   AuthenticateUserMutation,
   AuthenticateUserMutationVariables,
   CreateUserMutation,
@@ -14,7 +12,6 @@ import {
 import { createClient } from 'gql/apolloClient';
 import { useRouter } from 'next/router';
 import { CREATE_USER_MUTATION } from 'gql/api/mutations/createUser';
-import { AUTHENTICATED_USER_QUERY } from 'gql/api/queries/authenticatedUser';
 
 type AuthContextValues = {
   userId: string;
@@ -84,19 +81,6 @@ export const AuthProvider: React.FC = ({ children }) => {
     }
   };
 
-  const authSession = async () => {
-    try {
-      const {
-        data: { authenticatedUser },
-      } = await client.query<AuthenticatedUserQuery, AuthenticatedUserQueryVariables>({
-        query: AUTHENTICATED_USER_QUERY,
-      });
-      !authenticatedUser && signOut();
-    } catch (e) {
-      signOut();
-    }
-  };
-
   useEffect(() => {
     const persistedToken = localStorage.getItem('token');
     const persistedName = localStorage.getItem('name');
@@ -105,8 +89,6 @@ export const AuthProvider: React.FC = ({ children }) => {
     setAuthToken(persistedToken);
     setUserName(persistedName);
     setUserId(persistedId);
-
-    authSession();
   }, []);
 
   useEffect(() => {
