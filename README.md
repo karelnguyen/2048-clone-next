@@ -1,13 +1,29 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This project is a clone of a popular game 2048 built bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
+Try this game yourself! https://2048-clone-next.vercel.app/
 
 ## Getting Started
 
-First, run the development server:
+# Useful scripts
 
 ```bash
-npm run dev
-# or
-yarn dev
+  # test game logic
+  yarn test
+
+  # run development
+  yarn dev
+
+  # build project
+  yarn build
+
+  # generate gql schema and types
+  yarn generate
+
+  # run eslint check
+  yarn eslint
+
+  # install husky
+  yarn prepare
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
