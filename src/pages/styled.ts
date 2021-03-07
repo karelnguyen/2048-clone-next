@@ -31,3 +31,7 @@ export const StyledAuthButtons = styled.div`
   grid-gap: 5px;
   margin-bottom: 10px;
 `;
+
+export const StyledDescription = styled.div`
+  margin: 20px;
+`;

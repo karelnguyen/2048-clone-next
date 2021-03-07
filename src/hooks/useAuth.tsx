@@ -1,79 +1,41 @@
-import React, { useState, useContext, createContext } from 'react';
-import {
-  ApolloProvider,
-  ApolloClient,
-  InMemoryCache,
-  HttpLink,
-  gql,
-} from '@apollo/client';
-import { API_URL } from 'constants/.';
+import React, { useState, useContext, createContext, useEffect } from 'react';
+import { ApolloProvider } from '@apollo/client';
 
-const AuthContext = createContext(null);
+import { AUTHENTICATE_USER } from 'gql/api/mutations/authenticateUser';
+import { AuthenticateUserMutation, AuthenticateUserMutationVariables } from 'gql/types';
+import { createClient } from 'gql/apolloClient';
+import { useRouter } from 'next/router';
 
-export function AuthProvider({ children }) {
-  const auth = useProvideAuth();
-  const client = auth.createApolloClient();
-  return (
-    <AuthContext.Provider value={auth}>
-      <ApolloProvider client={client}>{children}</ApolloProvider>
-    </AuthContext.Provider>
-  );
-}
-
-export const useAuth = () => {
-  return useContext(AuthContext);
+type AuthContextValues = {
+  setAuthToken: React.Dispatch<React.SetStateAction<string>>;
+  signIn: (email: string, password: string) => Promise<void>;
+  signOut: () => void;
+  authToken: string;
+  isLoading: boolean;
 };
 
-function useProvideAuth() {
-  const [authToken, setAuthToken] = useState(null);
+const AuthContext = createContext<AuthContextValues>(null);
 
-  const isSignedIn = () => {
-    if (authToken) {
-      return true;
-    } else {
-      return false;
-    }
-  };
+export const AuthProvider = ({ children }) => {
+  const { route } = useRouter();
+  const [authToken, setAuthToken] = useState<string>();
+  const [isLoading, setLoading] = useState(true);
 
-  const getAuthHeaders = () => {
-    if (!authToken) return null;
+  const client = createClient(authToken);
 
-    return {
-      authorization: `Bearer ${authToken}`,
-    };
-  };
-
-  const createApolloClient = () => {
-    const link = new HttpLink({
-      uri: API_URL,
-      headers: getAuthHeaders(),
+  const signIn = async (email: string, password: string) => {
+    const {
+      data: {
+        authenticateUserWithPassword: { token },
+      },
+    } = await client.mutate<AuthenticateUserMutation, AuthenticateUserMutationVariables>({
+      mutation: AUTHENTICATE_USER,
+      variables: { email, password },
     });
 
-    return new ApolloClient({
-      link,
-      cache: new InMemoryCache(),
-    });
-  };
-
-  const signIn = async ({ username, password }) => {
-    const client = createApolloClient();
-    const LoginMutation = gql`
-      mutation signin($username: String!, $password: String!) {
-        login(username: $username, password: $password) {
-          token
-        }
-      }
-    `;
-
-    const result = await client.mutate({
-      mutation: LoginMutation,
-      variables: { username, password },
-    });
-
-    console.log(result);
-
-    if (result?.data?.login?.token) {
-      setAuthToken(result.data.login.token);
+    if (token) {
+      localStorage.setItem('token', token);
+      setAuthToken(token);
     }
   };
 
@@ -81,11 +43,33 @@ function useProvideAuth() {
     setAuthToken(null);
   };
 
-  return {
-    setAuthToken,
-    isSignedIn,
-    signIn,
-    signOut,
-    createApolloClient,
-  };
-}
+  useEffect(() => {
+    setLoading(true);
+    const persistedToken = localStorage.getItem('token');
+    if (!persistedToken && !authToken && route !== '/') {
+      window.location.href = '/';
+    }
+    setAuthToken(persistedToken);
+    setLoading(false);
+  }, []);
+
+  if (isLoading) return <></>;
+
+  return (
+    <AuthContext.Provider
+      value={{
+        setAuthToken,
+        signIn,
+        signOut,
+        authToken,
+        isLoading,
+      }}
+    >
+      <ApolloProvider client={client}>{children}</ApolloProvider>
+    </AuthContext.Provider>
+  );
+};
+
+export const useAuth = () => {
+  return useContext(AuthContext);
+};

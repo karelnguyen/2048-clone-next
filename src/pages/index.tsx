@@ -4,7 +4,7 @@ import * as React from 'react';
 import { GetStaticProps } from 'next';
 import { AppProps } from 'next/app';
 import { ALL_USERS_QUERY } from 'gql/api/queries/allUsers';
-import { client } from 'gql/apolloClient';
+import { createClient } from 'gql/apolloClient';
 import { ALL_SCORES_QUERY } from 'gql/api/queries/allScores';
 import {
   AllScoresQuery,
@@ -21,18 +21,47 @@ import LeaderBoard from 'components/LeaderBoard';
 import {
   StyledAuthButtons,
   StyledCentered,
+  StyledDescription,
   StyledWrapper,
   StyledWrapperTitle,
 } from './styled';
+import { useAuth } from 'hooks/useAuth';
 
 type HomeProps = AppProps & {
   allUsers: User[];
   allScores: Score[];
 };
 
+const Actions: React.FC<{ isAuthenticated: boolean }> = ({ isAuthenticated }) => {
+  const AuthorizedView = (
+    <StyledCentered flexDir="column">
+      <StyledDescription>Login or register to start new game.</StyledDescription>
+      <Link href="/game">
+        <Button>New Game</Button>
+      </Link>
+    </StyledCentered>
+  );
+  const UnAuthorizedView = (
+    <>
+      <StyledAuthButtons>
+        <ButtonModal btnText="Log In">
+          <SignInForm />
+        </ButtonModal>
+
+        <Link href="/register">
+          <Button dark>Register</Button>
+        </Link>
+      </StyledAuthButtons>
+      <StyledCentered>Login or register to start new game.</StyledCentered>
+    </>
+  );
+  return <div>{isAuthenticated ? AuthorizedView : UnAuthorizedView}</div>;
+};
+
 const Home: React.FC<HomeProps> = (props) => {
+  const { authToken } = useAuth();
   const { allScores } = props;
-  console.log(props);
+  console.log(props, authToken);
 
   return (
     <StyledWrapper>
@@ -42,32 +71,20 @@ const Home: React.FC<HomeProps> = (props) => {
       </Head>
 
       <main>
-        {/* <Game /> */}
         <StyledCentered flexDir="column">
           <StyledWrapperTitle>2048</StyledWrapperTitle>
         </StyledCentered>
 
         <LeaderBoard scores={allScores} />
 
-        <div>
-          <StyledAuthButtons>
-            <ButtonModal btnText="Log In">
-              <SignInForm />
-            </ButtonModal>
-
-            <Link href="/register">
-              <Button dark>Register</Button>
-            </Link>
-          </StyledAuthButtons>
-
-          <StyledCentered>Login or register to start new game.</StyledCentered>
-        </div>
+        <Actions isAuthenticated={!!authToken} />
       </main>
     </StyledWrapper>
   );
 };
 
 export const getStaticProps: GetStaticProps = async () => {
+  const client = createClient();
   const {
     data: { allUsers },
   } = await client.query<AllUsersQuery, AllUsersQueryVariables>({

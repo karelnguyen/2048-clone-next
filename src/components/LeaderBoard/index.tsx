@@ -32,13 +32,13 @@ const mock: Score[] = [
   },
 ];
 
-const LeaderBoard: React.FC<{ scores: Score[] }> = ({ scores = mock }) => {
+const LeaderBoard: React.FC<{ scores: Score[] }> = ({ scores }) => {
   return (
     <StyledCentered flexDir="column">
       <StyledTitle>Leaderboard</StyledTitle>
 
       <StyledList>
-        {scores.map((m, i) => {
+        {mock.map((m, i) => {
           return <Row key={i} placement={i + 1} score={m} />;
         })}
       </StyledList>
