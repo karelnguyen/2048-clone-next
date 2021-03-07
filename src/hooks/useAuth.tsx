@@ -88,8 +88,8 @@ export const AuthProvider: React.FC = ({ children }) => {
     try {
       const {
         data: { authenticatedUser },
-      } = await client.mutate<AuthenticatedUserQuery, AuthenticatedUserQueryVariables>({
-        mutation: AUTHENTICATED_USER_QUERY,
+      } = await client.query<AuthenticatedUserQuery, AuthenticatedUserQueryVariables>({
+        query: AUTHENTICATED_USER_QUERY,
       });
       !authenticatedUser && signOut();
     } catch (e) {
