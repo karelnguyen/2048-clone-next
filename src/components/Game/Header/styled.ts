@@ -25,6 +25,7 @@ export const StyledHeader = styled.div`
   margin-bottom: 100px;
   @media only screen and (max-width: 600px) {
     padding: 30px;
+    margin-bottom: 20px;
   }
 `;
 

@@ -16,5 +16,10 @@ export const StyledInputBox = styled.div`
     display: grid;
     grid-template-columns: auto auto;
     grid-gap: 15px;
+
+    @media only screen and (max-width: 600px) {
+      display: flex;
+      flex-direction: column;
+    }
   }
 `;
