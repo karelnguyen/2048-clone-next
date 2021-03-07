@@ -1,5 +1,0 @@
-{
-  "hooks": {
-    "pre-push": "concurrently \"npm:eslint\" "
-  }
-}
