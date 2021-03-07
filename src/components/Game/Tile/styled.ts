@@ -17,6 +17,8 @@ const mapFontColor = (value: number) => {
 export const StyledTile = styled.div<{ value: number }>`
   width: ${tileSize}px;
   height: ${tileSize}px;
+  max-width: ${tileSize}px;
+  max-height: ${tileSize}px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -26,4 +28,10 @@ export const StyledTile = styled.div<{ value: number }>`
   background-color: ${({ value }) => mapValueColor(value)};
   border-radius: 5px;
   margin: 3px;
+
+  @media only screen and (max-width: 600px) {
+    width: ${tileSize / 1.3}px;
+    height: ${tileSize / 1.3}px;
+    font-size: ${tileSize / 2.2}px;
+  }
 `;

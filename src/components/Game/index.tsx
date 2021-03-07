@@ -3,7 +3,7 @@ import { useSwipeable } from 'react-swipeable';
 import { Direction, GameStatus } from 'lib/GameFactory/types';
 import useGame from 'hooks/useGame';
 import Tile from './Tile';
-import { StyledBoard } from './styled';
+import { StyledBoard, StyledTable } from './styled';
 import Header from './Header';
 import Message from './Message';
 
@@ -26,7 +26,7 @@ const Game: React.FC<{ topScore: number }> = ({ topScore }) => {
       <Header handleStart={handleStart} score={game.score} topScore={topScore} />
       <Message isVisible={game.gameStatus === GameStatus.FINISHED} topScore={topScore} />
       <StyledBoard {...handlers}>
-        <table>
+        <StyledTable>
           <tbody>
             {game.board.map((row, i) => (
               <tr key={i}>
@@ -38,7 +38,7 @@ const Game: React.FC<{ topScore: number }> = ({ topScore }) => {
               </tr>
             ))}
           </tbody>
-        </table>
+        </StyledTable>
       </StyledBoard>
     </>
   );
