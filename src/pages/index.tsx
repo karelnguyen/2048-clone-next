@@ -87,6 +87,7 @@ export const getStaticProps: GetStaticProps = async () => {
   } = await client.query<AllScoresQuery, AllScoresQueryVariables>({
     query: ALL_SCORES_QUERY,
     variables: { first: 10, sortBy },
+    fetchPolicy: 'network-only',
   });
   return {
     props: {

@@ -3,7 +3,14 @@ import { startGame, move } from 'lib/GameFactory';
 import { Direction, Game, GameStatus } from 'lib/GameFactory/types';
 import { useMutation } from '@apollo/client';
 import { CREATE_SCORE_MUTATION } from 'gql/api/mutations/createScore';
-import { CreateScoreMutation, CreateScoreMutationVariables } from 'gql/types';
+import {
+  // AllScoresQuery,
+  // AllScoresQueryVariables,
+  CreateScoreMutation,
+  CreateScoreMutationVariables,
+  // SortScoresBy,
+} from 'gql/types';
+// import { ALL_SCORES_QUERY } from 'gql/api/queries/allScores';
 
 enum EventKeyCodes {
   UP = 'ArrowUp',
@@ -31,6 +38,25 @@ const useGame = (): UseGame => {
 
   const [createScore] = useMutation<CreateScoreMutation, CreateScoreMutationVariables>(
     CREATE_SCORE_MUTATION
+    // {
+    //   update: (cache, { data: { createScore } }) => {
+    //     const sortBy = 'score_DESC' as SortScoresBy;
+
+    //     const data = cache.readQuery<AllScoresQuery, AllScoresQueryVariables>({
+    //       query: ALL_SCORES_QUERY,
+    //       variables: { sortBy, first: 10 },
+    //     });
+
+    //     console.log('asd allScores', data?.allScores);
+
+    //     cache.writeQuery<AllScoresQuery, AllScoresQueryVariables>({
+    //       query: ALL_SCORES_QUERY,
+    //       data: {
+    //         allScores: [...data?.allScores, createScore],
+    //       },
+    //     });
+    //   },
+    // }
   );
 
   const updateGame = (game: Game) => {
