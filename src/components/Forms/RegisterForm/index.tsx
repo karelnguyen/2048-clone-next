@@ -3,12 +3,24 @@ import { useFormik } from 'formik';
 import { Input } from 'components/Input';
 import { Button } from 'components/Button';
 import { StyledFormWrapper, StyledInputBox } from './styled';
+import * as Yup from 'yup';
+import { useAuth } from 'hooks/useAuth';
+
+const RegisterSchema = Yup.object().shape({
+  password: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Required'),
+  email: Yup.string().email('Invalid email').required('Required'),
+  firstName: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Required'),
+  lastName: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Required'),
+});
 
 const RegisterForm: React.FC = () => {
+  const { register } = useAuth();
   const {
     values: { email, firstName, lastName, password },
     handleSubmit,
     handleChange,
+    isValid,
+    dirty,
   } = useFormik({
     initialValues: {
       firstName: '',
@@ -16,10 +28,18 @@ const RegisterForm: React.FC = () => {
       email: '',
       password: '',
     },
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+    onSubmit: async (values) => {
+      await register({
+        password: values.password,
+        email: values.email,
+        name: `${values.firstName} ${values.lastName}`,
+      });
+
+      window.location.href = '/';
     },
+    validationSchema: RegisterSchema,
   });
+
   return (
     <StyledFormWrapper>
       <h3>Sign up for a free account</h3>
@@ -61,7 +81,7 @@ const RegisterForm: React.FC = () => {
             value={password}
           />
           <div>
-            <Button dark type="submit">
+            <Button dark type="submit" disabled={!isValid || !dirty}>
               Register
             </Button>
           </div>

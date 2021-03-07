@@ -1,6 +1,9 @@
 import * as React from 'react';
 import { startGame, move } from 'lib/GameFactory';
-import { Direction, Game } from 'lib/GameFactory/types';
+import { Direction, Game, GameStatus } from 'lib/GameFactory/types';
+import { useMutation } from '@apollo/client';
+import { CREATE_SCORE_MUTATION } from 'gql/api/mutations/createScore';
+import { CreateScoreMutation, CreateScoreMutationVariables } from 'gql/types';
 
 enum EventKeyCodes {
   UP = 'ArrowUp',
@@ -26,6 +29,10 @@ const useGame = (): UseGame => {
   const [game, _setGame] = React.useState<Game>();
   const gameRef = React.useRef(game);
 
+  const [createScore] = useMutation<CreateScoreMutation, CreateScoreMutationVariables>(
+    CREATE_SCORE_MUTATION
+  );
+
   const updateGame = (game: Game) => {
     gameRef.current = game;
     _setGame(game);
@@ -37,7 +44,13 @@ const useGame = (): UseGame => {
   };
 
   const handleMove = (direction: Direction, currentGame: Game) => {
+    if (currentGame.gameStatus === GameStatus.FINISHED) return;
+
     const updatedGame = move(direction, currentGame);
+
+    if (updatedGame.gameStatus === GameStatus.FINISHED) {
+      createScore({ variables: { data: { score: updatedGame.score } } });
+    }
     updateGame(updatedGame);
   };
 

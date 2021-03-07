@@ -1,41 +1,58 @@
 import React, { useState, useContext, createContext, useEffect } from 'react';
 import { ApolloProvider } from '@apollo/client';
 
-import { AUTHENTICATE_USER } from 'gql/api/mutations/authenticateUser';
-import { AuthenticateUserMutation, AuthenticateUserMutationVariables } from 'gql/types';
+import { AUTHENTICATE_USER_MUTATION } from 'gql/api/mutations/authenticateUser';
+import {
+  AuthenticateUserMutation,
+  AuthenticateUserMutationVariables,
+  CreateUserMutation,
+  CreateUserMutationVariables,
+  UserCreateInput,
+} from 'gql/types';
 import { createClient } from 'gql/apolloClient';
 import { useRouter } from 'next/router';
+import { CREATE_USER_MUTATION } from 'gql/api/mutations/createUser';
 
 type AuthContextValues = {
-  setAuthToken: React.Dispatch<React.SetStateAction<string>>;
+  userId: string;
+  register: (data: UserCreateInput) => Promise<void>;
   signIn: (email: string, password: string) => Promise<void>;
   signOut: () => void;
   authToken: string;
-  isLoading: boolean;
+  userName: string;
 };
 
 const AuthContext = createContext<AuthContextValues>(null);
 
-export const AuthProvider = ({ children }) => {
+export const AuthProvider: React.FC = ({ children }) => {
   const { route } = useRouter();
   const [authToken, setAuthToken] = useState<string>();
-  const [isLoading, setLoading] = useState(true);
+  const [userName, setUserName] = useState<string>();
+  const [userId, setUserId] = useState<string>();
 
   const client = createClient(authToken);
 
   const signIn = async (email: string, password: string) => {
-    const {
-      data: {
-        authenticateUserWithPassword: { token },
-      },
-    } = await client.mutate<AuthenticateUserMutation, AuthenticateUserMutationVariables>({
-      mutation: AUTHENTICATE_USER,
-      variables: { email, password },
-    });
-
-    if (token) {
+    try {
+      const {
+        data: {
+          authenticateUserWithPassword: {
+            token,
+            item: { name, id },
+          },
+        },
+      } = await client.mutate<AuthenticateUserMutation, AuthenticateUserMutationVariables>({
+        mutation: AUTHENTICATE_USER_MUTATION,
+        variables: { email, password },
+      });
       localStorage.setItem('token', token);
+      localStorage.setItem('name', name);
+      localStorage.setItem('id', id);
+      setUserName(name);
       setAuthToken(token);
+      setUserId(id);
+    } catch (e) {
+      alert(e);
     }
   };
 
@@ -43,26 +60,52 @@ export const AuthProvider = ({ children }) => {
     setAuthToken(null);
   };
 
-  useEffect(() => {
-    setLoading(true);
-    const persistedToken = localStorage.getItem('token');
-    if (!persistedToken && !authToken && route !== '/') {
-      window.location.href = '/';
+  const register = async (data: UserCreateInput) => {
+    try {
+      const {
+        data: {
+          createUser: { name },
+        },
+      } = await client.mutate<CreateUserMutation, CreateUserMutationVariables>({
+        mutation: CREATE_USER_MUTATION,
+        variables: { data },
+      });
+      setUserName(name);
+      await signIn(data.email, data.password);
+    } catch (e) {
+      alert(e);
     }
+  };
+
+  useEffect(() => {
+    const persistedToken = localStorage.getItem('token');
+    const persistedName = localStorage.getItem('name');
+    const persistedId = localStorage.getItem('id');
+
     setAuthToken(persistedToken);
-    setLoading(false);
+    setUserName(persistedName);
+    setUserId(persistedId);
   }, []);
 
-  if (isLoading) return <></>;
+  useEffect(() => {
+    if (!authToken) {
+      const persistedToken = localStorage.getItem('token');
+
+      if (!persistedToken && !authToken && route !== '/') {
+        window.location.href = '/';
+      }
+    }
+  }, [authToken]);
 
   return (
     <AuthContext.Provider
       value={{
-        setAuthToken,
+        userId,
         signIn,
         signOut,
+        register,
         authToken,
-        isLoading,
+        userName,
       }}
     >
       <ApolloProvider client={client}>{children}</ApolloProvider>
@@ -70,6 +113,6 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-export const useAuth = () => {
+export const useAuth = (): AuthContextValues => {
   return useContext(AuthContext);
 };

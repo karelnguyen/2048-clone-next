@@ -3,17 +3,9 @@ import Link from 'next/link';
 import * as React from 'react';
 import { GetStaticProps } from 'next';
 import { AppProps } from 'next/app';
-import { ALL_USERS_QUERY } from 'gql/api/queries/allUsers';
 import { createClient } from 'gql/apolloClient';
 import { ALL_SCORES_QUERY } from 'gql/api/queries/allScores';
-import {
-  AllScoresQuery,
-  AllScoresQueryVariables,
-  AllUsersQuery,
-  AllUsersQueryVariables,
-  Score,
-  User,
-} from 'gql/types';
+import { AllScoresQuery, AllScoresQueryVariables, Score, SortScoresBy, User } from 'gql/types';
 import ButtonModal from 'components/Modals/ButtonModal';
 import { Button } from 'components/Button';
 import SignInForm from 'components/Forms/SignInForm';
@@ -32,10 +24,13 @@ type HomeProps = AppProps & {
   allScores: Score[];
 };
 
-const Actions: React.FC<{ isAuthenticated: boolean }> = ({ isAuthenticated }) => {
+const Actions: React.FC<{ isAuthenticated: boolean; name: string }> = ({
+  isAuthenticated,
+  name,
+}) => {
   const AuthorizedView = (
     <StyledCentered flexDir="column">
-      <StyledDescription>Login or register to start new game.</StyledDescription>
+      <StyledDescription>Hello {name}, nice to see you again!</StyledDescription>
       <Link href="/game">
         <Button>New Game</Button>
       </Link>
@@ -59,9 +54,8 @@ const Actions: React.FC<{ isAuthenticated: boolean }> = ({ isAuthenticated }) =>
 };
 
 const Home: React.FC<HomeProps> = (props) => {
-  const { authToken } = useAuth();
+  const { authToken, userName } = useAuth();
   const { allScores } = props;
-  console.log(props, authToken);
 
   return (
     <StyledWrapper>
@@ -77,7 +71,7 @@ const Home: React.FC<HomeProps> = (props) => {
 
         <LeaderBoard scores={allScores} />
 
-        <Actions isAuthenticated={!!authToken} />
+        <Actions isAuthenticated={!!authToken} name={userName} />
       </main>
     </StyledWrapper>
   );
@@ -85,20 +79,17 @@ const Home: React.FC<HomeProps> = (props) => {
 
 export const getStaticProps: GetStaticProps = async () => {
   const client = createClient();
-  const {
-    data: { allUsers },
-  } = await client.query<AllUsersQuery, AllUsersQueryVariables>({
-    query: ALL_USERS_QUERY,
-  });
+
+  const sortBy = 'score_DESC' as SortScoresBy;
 
   const {
     data: { allScores },
   } = await client.query<AllScoresQuery, AllScoresQueryVariables>({
     query: ALL_SCORES_QUERY,
+    variables: { first: 10, sortBy },
   });
   return {
     props: {
-      allUsers,
       allScores,
     },
   };

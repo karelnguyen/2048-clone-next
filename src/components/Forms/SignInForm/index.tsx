@@ -5,6 +5,12 @@ import { StyledInputBox } from './styled';
 import { Button } from 'components/Button';
 import { StyledCentered } from 'pages/styled';
 import { useAuth } from 'hooks/useAuth';
+import * as Yup from 'yup';
+
+const SignInSchema = Yup.object().shape({
+  password: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Required'),
+  email: Yup.string().email('Invalid email').required('Required'),
+});
 
 const SignInForm: React.FC = () => {
   const { signIn } = useAuth();
@@ -13,15 +19,19 @@ const SignInForm: React.FC = () => {
     values: { email, password },
     handleChange,
     handleSubmit,
+    isValid,
+    dirty,
   } = useFormik({
     initialValues: {
       email: '',
       password: '',
     },
-    onSubmit: ({ email: newEmail, password: newPassword }) => {
-      signIn(newEmail, newPassword);
+    onSubmit: async ({ email: newEmail, password: newPassword }) => {
+      await signIn(newEmail, newPassword);
     },
+    validationSchema: SignInSchema,
   });
+
   return (
     <>
       <h3>Login</h3>
@@ -47,7 +57,7 @@ const SignInForm: React.FC = () => {
             />
           </span>
           <StyledCentered>
-            <Button dark type="submit">
+            <Button dark type="submit" disabled={!isValid || !dirty}>
               Login
             </Button>
           </StyledCentered>

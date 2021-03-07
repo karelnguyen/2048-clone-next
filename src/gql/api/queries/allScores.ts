@@ -1,8 +1,8 @@
-import { gql } from "@apollo/client"
+import { gql } from '@apollo/client';
 
 export const ALL_SCORES_QUERY = gql`
-  query AllScores {
-    allScores {
+  query AllScores($where: ScoreWhereInput, $first: Int, $sortBy: [SortScoresBy!]) {
+    allScores(where: $where, first: $first, sortBy: $sortBy) {
       id
       score
       player {
@@ -11,4 +11,4 @@ export const ALL_SCORES_QUERY = gql`
       }
     }
   }
-`
+`;

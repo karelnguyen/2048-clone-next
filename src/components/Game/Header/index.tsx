@@ -12,16 +12,18 @@ import {
 type HeaderProps = {
   handleStart: () => void;
   score: number;
+  topScore: number;
 };
 
-const Header: React.FC<HeaderProps> = ({ handleStart, score }) => {
+const Header: React.FC<HeaderProps> = ({ handleStart, score, topScore }) => {
+  const bestRecord = score > topScore ? score : topScore;
   return (
     <StyledHeader>
       <StyledTitleWrapper>
         <StyledTitle>2048</StyledTitle>
         <LabelWrapper>
           <Label score={score} title="score" />
-          <Label score={score} title="best score" />
+          <Label score={bestRecord} title="best score" />
         </LabelWrapper>
       </StyledTitleWrapper>
       <StyledSubtitle>

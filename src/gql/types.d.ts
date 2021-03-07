@@ -17,7 +17,6 @@ export type Scalars = {
   Upload: any;
 };
 
-
 export type Query = {
   __typename?: 'Query';
   /**  Search for all User items which match the where clause.  */
@@ -44,7 +43,6 @@ export type Query = {
   authenticatedUser?: Maybe<User>;
 };
 
-
 export type QueryAllUsersArgs = {
   where?: Maybe<UserWhereInput>;
   search?: Maybe<Scalars['String']>;
@@ -54,11 +52,9 @@ export type QueryAllUsersArgs = {
   skip?: Maybe<Scalars['Int']>;
 };
 
-
 export type QueryUserArgs = {
   where: UserWhereUniqueInput;
 };
-
 
 export type Query_AllUsersMetaArgs = {
   where?: Maybe<UserWhereInput>;
@@ -69,7 +65,6 @@ export type Query_AllUsersMetaArgs = {
   skip?: Maybe<Scalars['Int']>;
 };
 
-
 export type QueryAllScoresArgs = {
   where?: Maybe<ScoreWhereInput>;
   search?: Maybe<Scalars['String']>;
@@ -79,11 +74,9 @@ export type QueryAllScoresArgs = {
   skip?: Maybe<Scalars['Int']>;
 };
 
-
 export type QueryScoreArgs = {
   where: ScoreWhereUniqueInput;
 };
-
 
 export type Query_AllScoresMetaArgs = {
   where?: Maybe<ScoreWhereInput>;
@@ -93,7 +86,6 @@ export type Query_AllScoresMetaArgs = {
   first?: Maybe<Scalars['Int']>;
   skip?: Maybe<Scalars['Int']>;
 };
-
 
 export type Query_KsListsMetaArgs = {
   where?: Maybe<_KsListsMetaInput>;
@@ -159,7 +151,7 @@ export enum SortUsersBy {
   EmailAsc = 'email_ASC',
   EmailDesc = 'email_DESC',
   IsAdminAsc = 'isAdmin_ASC',
-  IsAdminDesc = 'isAdmin_DESC'
+  IsAdminDesc = 'isAdmin_DESC',
 }
 
 /**  A keystone list  */
@@ -246,7 +238,6 @@ export type _ListAccess = {
   auth?: Maybe<Scalars['JSON']>;
 };
 
-
 export type _ListSchema = {
   __typename?: '_ListSchema';
   /** The typename as used in GraphQL queries */
@@ -268,7 +259,6 @@ export type _ListSchema = {
    */
   relatedFields?: Maybe<Array<Maybe<_ListSchemaRelatedFields>>>;
 };
-
 
 export type _ListSchemaFieldsArgs = {
   where?: Maybe<_ListSchemaFieldsInput>;
@@ -370,7 +360,7 @@ export enum SortScoresBy {
   PlayerAsc = 'player_ASC',
   PlayerDesc = 'player_DESC',
   ScoreAsc = 'score_ASC',
-  ScoreDesc = 'score_DESC'
+  ScoreDesc = 'score_DESC',
 }
 
 /**  A keystone list  */
@@ -435,68 +425,55 @@ export type Mutation = {
   updateAuthenticatedUser?: Maybe<User>;
 };
 
-
 export type MutationCreateUserArgs = {
   data?: Maybe<UserCreateInput>;
 };
 
-
 export type MutationCreateUsersArgs = {
   data?: Maybe<Array<Maybe<UsersCreateInput>>>;
 };
-
 
 export type MutationUpdateUserArgs = {
   id: Scalars['ID'];
   data?: Maybe<UserUpdateInput>;
 };
 
-
 export type MutationUpdateUsersArgs = {
   data?: Maybe<Array<Maybe<UsersUpdateInput>>>;
 };
-
 
 export type MutationDeleteUserArgs = {
   id: Scalars['ID'];
 };
 
-
 export type MutationDeleteUsersArgs = {
   ids?: Maybe<Array<Scalars['ID']>>;
 };
-
 
 export type MutationCreateScoreArgs = {
   data?: Maybe<ScoreCreateInput>;
 };
 
-
 export type MutationCreateScoresArgs = {
   data?: Maybe<Array<Maybe<ScoresCreateInput>>>;
 };
-
 
 export type MutationDeleteScoreArgs = {
   id: Scalars['ID'];
 };
 
-
 export type MutationDeleteScoresArgs = {
   ids?: Maybe<Array<Scalars['ID']>>;
 };
-
 
 export type MutationProcessGameArgs = {
   game: GameInput;
 };
 
-
 export type MutationAuthenticateUserWithPasswordArgs = {
   email?: Maybe<Scalars['String']>;
   password?: Maybe<Scalars['String']>;
 };
-
 
 export type MutationUpdateAuthenticatedUserArgs = {
   data?: Maybe<UserUpdateInput>;
@@ -543,7 +520,7 @@ export enum Direction {
   Left = 'Left',
   Right = 'Right',
   Up = 'Up',
-  Down = 'Down'
+  Down = 'Down',
 }
 
 export type AuthenticateUserOutput = {
@@ -572,59 +549,99 @@ export type UserRelateToOneInput = {
 
 export enum CacheControlScope {
   Public = 'PUBLIC',
-  Private = 'PRIVATE'
+  Private = 'PRIVATE',
 }
-
 
 export type AuthenticateUserMutationVariables = Exact<{
   email?: Maybe<Scalars['String']>;
   password?: Maybe<Scalars['String']>;
 }>;
 
+export type AuthenticateUserMutation = { __typename?: 'Mutation' } & {
+  authenticateUserWithPassword?: Maybe<
+    { __typename?: 'authenticateUserOutput' } & Pick<AuthenticateUserOutput, 'token'> & {
+        item?: Maybe<{ __typename?: 'User' } & Pick<User, 'name' | 'id'>>;
+      }
+  >;
+};
 
-export type AuthenticateUserMutation = (
-  { __typename?: 'Mutation' }
-  & { authenticateUserWithPassword?: Maybe<(
-    { __typename?: 'authenticateUserOutput' }
-    & Pick<AuthenticateUserOutput, 'token'>
-  )> }
-);
+export type CreateScoreMutationVariables = Exact<{
+  data?: Maybe<ScoreCreateInput>;
+}>;
 
-export type AllScoresQueryVariables = Exact<{ [key: string]: never; }>;
+export type CreateScoreMutation = { __typename?: 'Mutation' } & {
+  createScore?: Maybe<
+    { __typename?: 'Score' } & Pick<Score, 'id' | 'score'> & {
+        player?: Maybe<{ __typename?: 'User' } & Pick<User, 'id' | 'name'>>;
+      }
+  >;
+};
 
+export type CreateUserMutationVariables = Exact<{
+  data?: Maybe<UserCreateInput>;
+}>;
 
-export type AllScoresQuery = (
-  { __typename?: 'Query' }
-  & { allScores?: Maybe<Array<Maybe<(
-    { __typename?: 'Score' }
-    & Pick<Score, 'id' | 'score'>
-    & { player?: Maybe<(
-      { __typename?: 'User' }
-      & Pick<User, 'id' | 'name'>
-    )> }
-  )>>> }
-);
+export type CreateUserMutation = { __typename?: 'Mutation' } & {
+  createUser?: Maybe<{ __typename?: 'User' } & Pick<User, 'name' | 'id'>>;
+};
 
-export type AllUsersQueryVariables = Exact<{ [key: string]: never; }>;
+export type AllScoresQueryVariables = Exact<{
+  where?: Maybe<ScoreWhereInput>;
+  first?: Maybe<Scalars['Int']>;
+  sortBy?: Maybe<Array<SortScoresBy> | SortScoresBy>;
+}>;
 
+export type AllScoresQuery = { __typename?: 'Query' } & {
+  allScores?: Maybe<
+    Array<
+      Maybe<
+        { __typename?: 'Score' } & Pick<Score, 'id' | 'score'> & {
+            player?: Maybe<{ __typename?: 'User' } & Pick<User, 'id' | 'name'>>;
+          }
+      >
+    >
+  >;
+};
 
-export type AllUsersQuery = (
-  { __typename?: 'Query' }
-  & { allUsers?: Maybe<Array<Maybe<(
-    { __typename?: 'User' }
-    & Pick<User, 'id' | 'name'>
-  )>>> }
-);
+export type AllUsersQueryVariables = Exact<{ [key: string]: never }>;
 
+export type AllUsersQuery = { __typename?: 'Query' } & {
+  allUsers?: Maybe<Array<Maybe<{ __typename?: 'User' } & Pick<User, 'id' | 'name'>>>>;
+};
+
+export type AuthenticatedUserQueryVariables = Exact<{ [key: string]: never }>;
+
+export type AuthenticatedUserQuery = { __typename?: 'Query' } & {
+  authenticatedUser?: Maybe<{ __typename?: 'User' } & Pick<User, 'id' | 'name' | 'email'>>;
+};
+
+export type ScoreQueryVariables = Exact<{
+  where: ScoreWhereUniqueInput;
+}>;
+
+export type ScoreQuery = { __typename?: 'Query' } & {
+  Score?: Maybe<
+    { __typename?: 'Score' } & Pick<Score, 'id' | 'score'> & {
+        player?: Maybe<{ __typename?: 'User' } & Pick<User, 'name'>>;
+      }
+  >;
+};
 
 export const AuthenticateUserDocument = gql`
-    mutation AuthenticateUser($email: String, $password: String) {
-  authenticateUserWithPassword(email: $email, password: $password) {
-    token
+  mutation AuthenticateUser($email: String, $password: String) {
+    authenticateUserWithPassword(email: $email, password: $password) {
+      token
+      item {
+        name
+        id
+      }
+    }
   }
-}
-    `;
-export type AuthenticateUserMutationFn = Apollo.MutationFunction<AuthenticateUserMutation, AuthenticateUserMutationVariables>;
+`;
+export type AuthenticateUserMutationFn = Apollo.MutationFunction<
+  AuthenticateUserMutation,
+  AuthenticateUserMutationVariables
+>;
 
 /**
  * __useAuthenticateUserMutation__
@@ -644,24 +661,127 @@ export type AuthenticateUserMutationFn = Apollo.MutationFunction<AuthenticateUse
  *   },
  * });
  */
-export function useAuthenticateUserMutation(baseOptions?: Apollo.MutationHookOptions<AuthenticateUserMutation, AuthenticateUserMutationVariables>) {
-        return Apollo.useMutation<AuthenticateUserMutation, AuthenticateUserMutationVariables>(AuthenticateUserDocument, baseOptions);
-      }
+export function useAuthenticateUserMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    AuthenticateUserMutation,
+    AuthenticateUserMutationVariables
+  >
+) {
+  return Apollo.useMutation<AuthenticateUserMutation, AuthenticateUserMutationVariables>(
+    AuthenticateUserDocument,
+    baseOptions
+  );
+}
 export type AuthenticateUserMutationHookResult = ReturnType<typeof useAuthenticateUserMutation>;
 export type AuthenticateUserMutationResult = Apollo.MutationResult<AuthenticateUserMutation>;
-export type AuthenticateUserMutationOptions = Apollo.BaseMutationOptions<AuthenticateUserMutation, AuthenticateUserMutationVariables>;
-export const AllScoresDocument = gql`
-    query AllScores {
-  allScores {
-    id
-    score
-    player {
+export type AuthenticateUserMutationOptions = Apollo.BaseMutationOptions<
+  AuthenticateUserMutation,
+  AuthenticateUserMutationVariables
+>;
+export const CreateScoreDocument = gql`
+  mutation CreateScore($data: ScoreCreateInput) {
+    createScore(data: $data) {
       id
-      name
+      score
+      player {
+        id
+        name
+      }
     }
   }
+`;
+export type CreateScoreMutationFn = Apollo.MutationFunction<
+  CreateScoreMutation,
+  CreateScoreMutationVariables
+>;
+
+/**
+ * __useCreateScoreMutation__
+ *
+ * To run a mutation, you first call `useCreateScoreMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateScoreMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createScoreMutation, { data, loading, error }] = useCreateScoreMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useCreateScoreMutation(
+  baseOptions?: Apollo.MutationHookOptions<CreateScoreMutation, CreateScoreMutationVariables>
+) {
+  return Apollo.useMutation<CreateScoreMutation, CreateScoreMutationVariables>(
+    CreateScoreDocument,
+    baseOptions
+  );
 }
-    `;
+export type CreateScoreMutationHookResult = ReturnType<typeof useCreateScoreMutation>;
+export type CreateScoreMutationResult = Apollo.MutationResult<CreateScoreMutation>;
+export type CreateScoreMutationOptions = Apollo.BaseMutationOptions<
+  CreateScoreMutation,
+  CreateScoreMutationVariables
+>;
+export const CreateUserDocument = gql`
+  mutation CreateUser($data: UserCreateInput) {
+    createUser(data: $data) {
+      name
+      id
+    }
+  }
+`;
+export type CreateUserMutationFn = Apollo.MutationFunction<
+  CreateUserMutation,
+  CreateUserMutationVariables
+>;
+
+/**
+ * __useCreateUserMutation__
+ *
+ * To run a mutation, you first call `useCreateUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createUserMutation, { data, loading, error }] = useCreateUserMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useCreateUserMutation(
+  baseOptions?: Apollo.MutationHookOptions<CreateUserMutation, CreateUserMutationVariables>
+) {
+  return Apollo.useMutation<CreateUserMutation, CreateUserMutationVariables>(
+    CreateUserDocument,
+    baseOptions
+  );
+}
+export type CreateUserMutationHookResult = ReturnType<typeof useCreateUserMutation>;
+export type CreateUserMutationResult = Apollo.MutationResult<CreateUserMutation>;
+export type CreateUserMutationOptions = Apollo.BaseMutationOptions<
+  CreateUserMutation,
+  CreateUserMutationVariables
+>;
+export const AllScoresDocument = gql`
+  query AllScores($where: ScoreWhereInput, $first: Int, $sortBy: [SortScoresBy!]) {
+    allScores(where: $where, first: $first, sortBy: $sortBy) {
+      id
+      score
+      player {
+        id
+        name
+      }
+    }
+  }
+`;
 
 /**
  * __useAllScoresQuery__
@@ -675,26 +795,36 @@ export const AllScoresDocument = gql`
  * @example
  * const { data, loading, error } = useAllScoresQuery({
  *   variables: {
+ *      where: // value for 'where'
+ *      first: // value for 'first'
+ *      sortBy: // value for 'sortBy'
  *   },
  * });
  */
-export function useAllScoresQuery(baseOptions?: Apollo.QueryHookOptions<AllScoresQuery, AllScoresQueryVariables>) {
-        return Apollo.useQuery<AllScoresQuery, AllScoresQueryVariables>(AllScoresDocument, baseOptions);
-      }
-export function useAllScoresLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AllScoresQuery, AllScoresQueryVariables>) {
-          return Apollo.useLazyQuery<AllScoresQuery, AllScoresQueryVariables>(AllScoresDocument, baseOptions);
-        }
+export function useAllScoresQuery(
+  baseOptions?: Apollo.QueryHookOptions<AllScoresQuery, AllScoresQueryVariables>
+) {
+  return Apollo.useQuery<AllScoresQuery, AllScoresQueryVariables>(AllScoresDocument, baseOptions);
+}
+export function useAllScoresLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<AllScoresQuery, AllScoresQueryVariables>
+) {
+  return Apollo.useLazyQuery<AllScoresQuery, AllScoresQueryVariables>(
+    AllScoresDocument,
+    baseOptions
+  );
+}
 export type AllScoresQueryHookResult = ReturnType<typeof useAllScoresQuery>;
 export type AllScoresLazyQueryHookResult = ReturnType<typeof useAllScoresLazyQuery>;
 export type AllScoresQueryResult = Apollo.QueryResult<AllScoresQuery, AllScoresQueryVariables>;
 export const AllUsersDocument = gql`
-    query AllUsers {
-  allUsers {
-    id
-    name
+  query AllUsers {
+    allUsers {
+      id
+      name
+    }
   }
-}
-    `;
+`;
 
 /**
  * __useAllUsersQuery__
@@ -711,12 +841,104 @@ export const AllUsersDocument = gql`
  *   },
  * });
  */
-export function useAllUsersQuery(baseOptions?: Apollo.QueryHookOptions<AllUsersQuery, AllUsersQueryVariables>) {
-        return Apollo.useQuery<AllUsersQuery, AllUsersQueryVariables>(AllUsersDocument, baseOptions);
-      }
-export function useAllUsersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AllUsersQuery, AllUsersQueryVariables>) {
-          return Apollo.useLazyQuery<AllUsersQuery, AllUsersQueryVariables>(AllUsersDocument, baseOptions);
-        }
+export function useAllUsersQuery(
+  baseOptions?: Apollo.QueryHookOptions<AllUsersQuery, AllUsersQueryVariables>
+) {
+  return Apollo.useQuery<AllUsersQuery, AllUsersQueryVariables>(AllUsersDocument, baseOptions);
+}
+export function useAllUsersLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<AllUsersQuery, AllUsersQueryVariables>
+) {
+  return Apollo.useLazyQuery<AllUsersQuery, AllUsersQueryVariables>(AllUsersDocument, baseOptions);
+}
 export type AllUsersQueryHookResult = ReturnType<typeof useAllUsersQuery>;
 export type AllUsersLazyQueryHookResult = ReturnType<typeof useAllUsersLazyQuery>;
 export type AllUsersQueryResult = Apollo.QueryResult<AllUsersQuery, AllUsersQueryVariables>;
+export const AuthenticatedUserDocument = gql`
+  query AuthenticatedUser {
+    authenticatedUser {
+      id
+      name
+      email
+    }
+  }
+`;
+
+/**
+ * __useAuthenticatedUserQuery__
+ *
+ * To run a query within a React component, call `useAuthenticatedUserQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAuthenticatedUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAuthenticatedUserQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useAuthenticatedUserQuery(
+  baseOptions?: Apollo.QueryHookOptions<AuthenticatedUserQuery, AuthenticatedUserQueryVariables>
+) {
+  return Apollo.useQuery<AuthenticatedUserQuery, AuthenticatedUserQueryVariables>(
+    AuthenticatedUserDocument,
+    baseOptions
+  );
+}
+export function useAuthenticatedUserLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<AuthenticatedUserQuery, AuthenticatedUserQueryVariables>
+) {
+  return Apollo.useLazyQuery<AuthenticatedUserQuery, AuthenticatedUserQueryVariables>(
+    AuthenticatedUserDocument,
+    baseOptions
+  );
+}
+export type AuthenticatedUserQueryHookResult = ReturnType<typeof useAuthenticatedUserQuery>;
+export type AuthenticatedUserLazyQueryHookResult = ReturnType<typeof useAuthenticatedUserLazyQuery>;
+export type AuthenticatedUserQueryResult = Apollo.QueryResult<
+  AuthenticatedUserQuery,
+  AuthenticatedUserQueryVariables
+>;
+export const ScoreDocument = gql`
+  query Score($where: ScoreWhereUniqueInput!) {
+    Score(where: $where) {
+      id
+      score
+      player {
+        name
+      }
+    }
+  }
+`;
+
+/**
+ * __useScoreQuery__
+ *
+ * To run a query within a React component, call `useScoreQuery` and pass it any options that fit your needs.
+ * When your component renders, `useScoreQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useScoreQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useScoreQuery(
+  baseOptions: Apollo.QueryHookOptions<ScoreQuery, ScoreQueryVariables>
+) {
+  return Apollo.useQuery<ScoreQuery, ScoreQueryVariables>(ScoreDocument, baseOptions);
+}
+export function useScoreLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<ScoreQuery, ScoreQueryVariables>
+) {
+  return Apollo.useLazyQuery<ScoreQuery, ScoreQueryVariables>(ScoreDocument, baseOptions);
+}
+export type ScoreQueryHookResult = ReturnType<typeof useScoreQuery>;
+export type ScoreLazyQueryHookResult = ReturnType<typeof useScoreLazyQuery>;
+export type ScoreQueryResult = Apollo.QueryResult<ScoreQuery, ScoreQueryVariables>;
