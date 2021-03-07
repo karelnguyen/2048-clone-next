@@ -24,7 +24,7 @@ const Game: React.FC<{ topScore: number }> = ({ topScore }) => {
   return (
     <>
       <Header handleStart={handleStart} score={game.score} topScore={topScore} />
-      <Message isVisible={game.gameStatus === GameStatus.FINISHED} topScore={topScore} />
+      <Message isVisible={game.gameStatus === GameStatus.FINISHED} topScore={game.score} />
       <StyledBoard {...handlers}>
         <StyledTable>
           <tbody>
