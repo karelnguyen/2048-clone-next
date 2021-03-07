@@ -1,5 +1,5 @@
 import { Button } from 'components/Button';
-import { StyledCentered } from 'pages/styled';
+import { StyledCentered } from 'src/styles/styled';
 import * as React from 'react';
 import { StyledMessageBox, StyledOverlay, StyledScore } from './styled';
 import { useRouter } from 'next/router';

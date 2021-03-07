@@ -3,7 +3,7 @@ import { useFormik } from 'formik';
 import { Input } from 'components/Input';
 import { StyledInputBox } from './styled';
 import { Button } from 'components/Button';
-import { StyledCentered } from 'pages/styled';
+import { StyledCentered } from 'src/styles/styled';
 import { useAuth } from 'hooks/useAuth';
 import * as Yup from 'yup';
 

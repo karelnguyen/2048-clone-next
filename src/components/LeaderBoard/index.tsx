@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Score } from 'gql/types';
-import { StyledCentered } from 'pages/styled';
+import { StyledCentered } from 'src/styles/styled';
 import Row from './Row';
 import { StyledList, StyledTitle } from './styled';
 

@@ -4,7 +4,7 @@ import { ALL_SCORES_QUERY } from 'gql/api/queries/allScores';
 import { AllScoresQuery, AllScoresQueryVariables, SortScoresBy } from 'gql/types';
 import { useAuth } from 'hooks/useAuth';
 import Head from 'next/head';
-import { StyledWrapper } from 'pages/styled';
+import { StyledWrapper } from 'src/styles/styled';
 import * as React from 'react';
 
 const GamePage: React.FC = () => {

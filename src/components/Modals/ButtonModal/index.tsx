@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyledCentered } from 'pages/styled';
+import { StyledCentered } from 'src/styles/styled';
 import { Button } from 'components/Button';
 import { StyledLoginModal, StyledOverlay } from './styled';
 
@@ -16,9 +16,7 @@ const ButtonModal: React.FC<ModalProps> = ({ children, btnText }) => {
       {isOpen && (
         <StyledOverlay onClick={() => setIsOpen(false)}>
           <StyledCentered>
-            <StyledLoginModal onClick={(e) => e.stopPropagation()}>
-              {children}
-            </StyledLoginModal>
+            <StyledLoginModal onClick={(e) => e.stopPropagation()}>{children}</StyledLoginModal>
           </StyledCentered>
         </StyledOverlay>
       )}

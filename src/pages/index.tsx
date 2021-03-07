@@ -16,7 +16,7 @@ import {
   StyledDescription,
   StyledWrapper,
   StyledWrapperTitle,
-} from './styled';
+} from '../styles/styled';
 import { useAuth } from 'hooks/useAuth';
 
 type HomeProps = AppProps & {

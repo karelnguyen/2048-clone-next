@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import * as React from 'react';
 
-import { StyledCentered, StyledWrapper, StyledWrapperTitle } from '../styled';
+import { StyledCentered, StyledWrapper, StyledWrapperTitle } from '../../styles/styled';
 import RegisterForm from 'components/Forms/RegisterForm';
 
 const Register: React.FC = () => {
