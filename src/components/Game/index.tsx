@@ -1,13 +1,13 @@
-import * as React from "react"
-import { useSwipeable } from "react-swipeable"
-import { Direction } from "../../../lib/GameFactory/types"
-import useGame from "../../hooks/useGame"
-import Tile from "./Tile"
-import { StyledBoard } from "./styled"
-import Header from "./Header"
+import * as React from 'react';
+import { useSwipeable } from 'react-swipeable';
+import { Direction } from 'lib/GameFactory/types';
+import useGame from 'hooks/useGame';
+import Tile from './Tile';
+import { StyledBoard } from './styled';
+import Header from './Header';
 
 const Game: React.FC = () => {
-  const { game, handleStart, handleMove } = useGame()
+  const { game, handleStart, handleMove } = useGame();
 
   const handlers = useSwipeable({
     onSwipedUp: () => handleMove(Direction.UP, game),
@@ -16,9 +16,9 @@ const Game: React.FC = () => {
     onSwipedRight: () => handleMove(Direction.RIGHT, game),
     preventDefaultTouchmoveEvent: true,
     trackMouse: true,
-  })
+  });
 
-  if (!game) return <></>
+  if (!game) return <></>;
 
   return (
     <>
@@ -40,7 +40,7 @@ const Game: React.FC = () => {
         </table>
       </StyledBoard>
     </>
-  )
-}
+  );
+};
 
-export default Game
+export default Game;

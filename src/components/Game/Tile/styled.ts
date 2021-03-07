@@ -1,18 +1,18 @@
-import styled from "styled-components"
-import { colors } from "../../../constants"
+import styled from 'styled-components';
+import { colors } from 'constants/.';
 
-const tileSize = 100
+const tileSize = 100;
 
 const mapValueColor = (value: number) => {
-  if (value === 0) return colors.tile.default
-  if (value >= 2048) return colors.tile.biggest
+  if (value === 0) return colors.tile.default;
+  if (value >= 2048) return colors.tile.biggest;
 
-  return colors.tile[value]
-}
+  return colors.tile[value];
+};
 
 const mapFontColor = (value: number) => {
-  return value < 16 ? colors.fonts.dark : colors.fonts.light
-}
+  return value < 16 ? colors.fonts.dark : colors.fonts.light;
+};
 
 export const StyledTile = styled.div<{ value: number }>`
   width: ${tileSize}px;
@@ -26,4 +26,4 @@ export const StyledTile = styled.div<{ value: number }>`
   background-color: ${({ value }) => mapValueColor(value)};
   border-radius: 5px;
   margin: 3px;
-`
+`;

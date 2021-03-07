@@ -1,12 +1,12 @@
 overwrite: true
-schema: "https://shoptet-2048.herokuapp.com/admin/api"
-documents: "src/gql/api/**/*.ts"
+schema: 'https://shoptet-2048.herokuapp.com/admin/api'
+documents: 'src/gql/api/**/*.ts'
 generates:
-  src/gql/types.ts:
+  src/gql/types.d.ts:
     plugins:
-      - "typescript"
-      - "typescript-operations"
-      - "typescript-react-apollo"
+      - 'typescript'
+      - 'typescript-operations'
+      - 'typescript-react-apollo'
   ./graphql.schema.json:
     plugins:
-      - "introspection"
+      - 'introspection'

@@ -1,18 +1,18 @@
-import * as React from "react"
-import { Button } from "../../Button"
-import Label from "../Label"
+import * as React from 'react';
+import { Button } from 'components/Button';
+import Label from '../Label';
 import {
   LabelWrapper,
   StyledTitle,
   StyledTitleWrapper,
   StyledHeader,
   StyledSubtitle,
-} from "./styled"
+} from './styled';
 
 type HeaderProps = {
-  handleStart: () => void
-  score: number
-}
+  handleStart: () => void;
+  score: number;
+};
 
 const Header: React.FC<HeaderProps> = ({ handleStart, score }) => {
   return (
@@ -29,10 +29,12 @@ const Header: React.FC<HeaderProps> = ({ handleStart, score }) => {
           Join the numbers and get to the <b>2048 tile!</b>
         </span>
 
-        <Button onClick={handleStart}>New Game</Button>
+        <Button dark onClick={handleStart}>
+          New Game
+        </Button>
       </StyledSubtitle>
     </StyledHeader>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

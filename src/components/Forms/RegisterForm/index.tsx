@@ -1,25 +1,29 @@
-import * as React from "react"
-import { useFormik } from "formik"
-import { Input } from "../../../components/Input"
-import { StyledFormWrapper, StyledInputBox } from "./styled"
-import { Button } from "../../../components/Button"
+import * as React from 'react';
+import { useFormik } from 'formik';
+import { Input } from 'components/Input';
+import { Button } from 'components/Button';
+import { StyledFormWrapper, StyledInputBox } from './styled';
 
-const RegisterForm = () => {
-  const formik = useFormik({
+const RegisterForm: React.FC = () => {
+  const {
+    values: { email, firstName, lastName, password },
+    handleSubmit,
+    handleChange,
+  } = useFormik({
     initialValues: {
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: "",
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
     },
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2))
+      alert(JSON.stringify(values, null, 2));
     },
-  })
+  });
   return (
     <StyledFormWrapper>
       <h3>Sign up for a free account</h3>
-      <form onSubmit={formik.handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <StyledInputBox>
           <span>
             <Input
@@ -27,16 +31,16 @@ const RegisterForm = () => {
               name="firstName"
               type="text"
               placeholder="First Name"
-              onChange={formik.handleChange}
-              value={formik.values.firstName}
+              onChange={handleChange}
+              value={firstName}
             />
             <Input
               id="lastName"
               name="lastName"
               type="text"
               placeholder="Last Name"
-              onChange={formik.handleChange}
-              value={formik.values.lastName}
+              onChange={handleChange}
+              value={lastName}
             />
           </span>
           <Input
@@ -44,8 +48,8 @@ const RegisterForm = () => {
             name="email"
             type="email"
             placeholder="Email adress"
-            onChange={formik.handleChange}
-            value={formik.values.email}
+            onChange={handleChange}
+            value={email}
           />
           <Input
             id="password"
@@ -53,16 +57,18 @@ const RegisterForm = () => {
             type="password"
             placeholder="Create password"
             autoComplete="create-password"
-            onChange={formik.handleChange}
-            value={formik.values.password}
+            onChange={handleChange}
+            value={password}
           />
           <div>
-            <Button type="submit">Register</Button>
+            <Button dark type="submit">
+              Register
+            </Button>
           </div>
         </StyledInputBox>
       </form>
     </StyledFormWrapper>
-  )
-}
+  );
+};
 
-export default RegisterForm
+export default RegisterForm;

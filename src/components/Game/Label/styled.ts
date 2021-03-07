@@ -1,5 +1,5 @@
-import styled from "styled-components"
-import { colors } from "../../../constants"
+import styled from 'styled-components';
+import { colors } from 'constants/.';
 
 export const StyledBox = styled.div`
   padding: 5px 20px;
@@ -13,9 +13,9 @@ export const StyledBox = styled.div`
   font-size: 10px;
   border-radius: 5px;
   font-weight: 500;
-`
+`;
 
 export const StyledScore = styled.span`
   font-size: 25px;
   font-weight: bold;
-`
+`;

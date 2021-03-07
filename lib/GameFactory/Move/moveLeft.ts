@@ -1,11 +1,11 @@
-import { Board, Direction } from "../types"
-import { evaluateMove } from "../Evaluation"
-import { shiftToLeft } from "../Board"
+import { Board, Direction, GameResult } from '../types';
+import { evaluateMove } from '../Evaluation';
+import { shiftToLeft } from '../Board';
 
-export const moveLeft = (board: Board, direction: Direction) => {
-  const newBoard = shiftToLeft(board)
+export const moveLeft = (board: Board, direction: Direction): GameResult => {
+  const newBoard = shiftToLeft(board);
 
-  const { score, board: evaluatedBoard } = evaluateMove(newBoard, direction)
+  const { score, board: evaluatedBoard } = evaluateMove(newBoard, direction);
 
-  return { board: evaluatedBoard, score }
-}
+  return { board: evaluatedBoard, score };
+};

@@ -1,5 +1,5 @@
-import styled from "styled-components"
-import { colors } from "../../constants"
+import styled from 'styled-components';
+import { colors } from 'constants/.';
 
 export const StyledBoard = styled.div`
   background-color: ${colors.boardBackground};
@@ -8,4 +8,4 @@ export const StyledBoard = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`
+`;

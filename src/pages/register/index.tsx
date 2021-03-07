@@ -1,17 +1,10 @@
-import { useQuery } from "@apollo/client"
-import Head from "next/head"
-import * as React from "react"
+import Head from 'next/head';
+import * as React from 'react';
 
-import { StyledCentered, StyledWrapper, StyledWrapperTitle } from "../styled"
-import RegisterForm from "./Form"
+import { StyledCentered, StyledWrapper, StyledWrapperTitle } from '../styled';
+import RegisterForm from 'components/Forms/RegisterForm';
 
-{
-  /* <Link href="/about">
-<a>About Us</a>
-</Link> */
-}
-
-export default function Register(props) {
+const Register: React.FC = () => {
   return (
     <StyledWrapper>
       <Head>
@@ -26,5 +19,7 @@ export default function Register(props) {
         </StyledCentered>
       </main>
     </StyledWrapper>
-  )
-}
+  );
+};
+
+export default Register;

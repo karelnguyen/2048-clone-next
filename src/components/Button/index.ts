@@ -1,10 +1,11 @@
-import styled from "styled-components"
-import { colors } from "../../constants"
+import styled from 'styled-components';
+import { colors } from 'constants/.';
 
-export const Button = styled.button`
-  background-color: ${colors.button.default};
-  color: ${colors.fonts.light};
-  border: none;
+export const Button = styled.button<{ dark?: true }>`
+  background-color: ${({ dark }) => (dark ? colors.button.default : 'white')};
+  color: ${({ dark }) => (dark ? colors.fonts.light : colors.fonts.dark)};
+  border: ${({ dark }) =>
+    dark ? 'none' : `2px solid ${colors.boardBackground}`};
   border-radius: 5px;
   padding: 10px 20px;
   text-transform: capitalize;
@@ -18,4 +19,4 @@ export const Button = styled.button`
   &:active {
     color: ${colors.fonts.dark};
   }
-`
+`;

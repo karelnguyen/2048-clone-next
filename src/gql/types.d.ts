@@ -586,7 +586,7 @@ export type AllScoresQuery = (
     & Pick<Score, 'id' | 'score'>
     & { player?: Maybe<(
       { __typename?: 'User' }
-      & Pick<User, 'name'>
+      & Pick<User, 'id' | 'name'>
     )> }
   )>>> }
 );
@@ -609,6 +609,7 @@ export const AllScoresDocument = gql`
     id
     score
     player {
+      id
       name
     }
   }

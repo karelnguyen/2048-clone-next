@@ -1,6 +1,7 @@
 export const colors = {
   mainBackground: "#FAF8EF",
   boardBackground: "#BBADA0",
+  highlight: "#666666",
   button: {
     default: "#8F7A66",
   },
