@@ -2,6 +2,8 @@ This project is a clone of a popular game 2048 built bootstrapped with [`create-
 
 Try this game yourself! https://2048-clone-next.vercel.app/
 
+![Screenshot](screenshot.png)
+
 ## Getting Started
 
 # Useful scripts
