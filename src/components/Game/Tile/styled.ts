@@ -14,6 +14,8 @@ const mapFontColor = (value: number) => {
   return value < 16 ? colors.fonts.dark : colors.fonts.light;
 };
 
+const getFontSize = (value: number) => (value >= 1000 ? tileSize / 3 : tileSize / 2);
+
 export const StyledTile = styled.div<{ value: number }>`
   width: ${tileSize}px;
   height: ${tileSize}px;
@@ -23,7 +25,7 @@ export const StyledTile = styled.div<{ value: number }>`
   justify-content: center;
   align-items: center;
   color: ${({ value }) => mapFontColor(value)};
-  font-size: ${tileSize / 2}px;
+  font-size: ${({ value }) => `${getFontSize(value)}px`};
   font-weight: 600;
   background-color: ${({ value }) => mapValueColor(value)};
   border-radius: 5px;
@@ -32,6 +34,6 @@ export const StyledTile = styled.div<{ value: number }>`
   @media only screen and (max-width: 600px) {
     width: ${tileSize / 1.3}px;
     height: ${tileSize / 1.3}px;
-    font-size: ${tileSize / 2.2}px;
+    font-size: ${({ value }) => `${getFontSize(value) / 1.3}px`};
   }
 `;
