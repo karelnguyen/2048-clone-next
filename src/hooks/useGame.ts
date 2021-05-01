@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { startGame, move } from 'lib/GameFactory';
-import { Direction, Game, GameStatus } from 'lib/GameFactory/types';
+import { startGame, move } from '2048-ts-engine';
+import { Direction, Game, GameStatus } from '2048-ts-engine/lib/types';
 import { useMutation } from '@apollo/client';
 import { CREATE_SCORE_MUTATION } from 'gql/api/mutations/createScore';
 import {

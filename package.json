@@ -15,6 +15,7 @@
     "@apollo/client": "^3.3.11",
     "@types/jest": "^26.0.20",
     "@types/styled-components": "^5.1.7",
+    "2048-ts-engine": "^1.1.5",
     "eslint-config-prettier": "^8.1.0",
     "formik": "^2.2.6",
     "graphql": "^15.5.0",
