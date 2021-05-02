@@ -8,14 +8,14 @@
     "build": "next build",
     "start": "next start",
     "generate": "graphql-codegen --config codegen.yml",
-    "eslint": "eslint . --ext .tsx --ext .ts",
+    "eslint": "eslint . --ext .tsx --ext .ts && tsc --noemit",
     "prepare": "husky install"
   },
   "dependencies": {
+    "2048-ts-engine": "^1.1.5",
     "@apollo/client": "^3.3.11",
     "@types/jest": "^26.0.20",
     "@types/styled-components": "^5.1.7",
-    "2048-ts-engine": "^1.1.5",
     "eslint-config-prettier": "^8.1.0",
     "formik": "^2.2.6",
     "graphql": "^15.5.0",
@@ -42,6 +42,7 @@
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-react": "^7.22.0",
     "jest": "^26.6.3",
+    "tsc": "^1.20150623.0",
     "typescript": "^4.2.3",
     "yup": "^0.32.9"
   }

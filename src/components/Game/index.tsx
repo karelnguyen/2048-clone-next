@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { useSwipeable } from 'react-swipeable';
-import { Direction, GameStatus } from 'lib/GameFactory/types';
 import useGame from 'hooks/useGame';
 import Tile from './Tile';
 import { StyledBoard, StyledTable } from './styled';
 import Header from './Header';
 import Message from './Message';
+import { Direction, GameStatus } from '2048-ts-engine/lib/types';
 
 const Game: React.FC<{ topScore: number }> = ({ topScore }) => {
   const { game, handleStart, handleMove } = useGame();
