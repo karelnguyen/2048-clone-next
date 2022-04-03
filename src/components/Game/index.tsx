@@ -5,7 +5,7 @@ import Tile from './Tile';
 import { StyledBoard, StyledTable } from './styled';
 import Header from './Header';
 import Message from './Message';
-import { Direction, GameStatus } from '2048-ts-engine/lib/types';
+import { Direction, GameStatus } from '2048-ts-engine/src/types';
 
 const Game: React.FC<{ topScore: number }> = ({ topScore }) => {
   const { game, handleStart, handleMove } = useGame();

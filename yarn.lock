@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"2048-ts-engine@^1.1.5":
-  version "1.1.5"
-  resolved "https://registry.yarnpkg.com/2048-ts-engine/-/2048-ts-engine-1.1.5.tgz#e500adca2c44bbaf7f1ca188469f8856e8fa9da6"
-  integrity sha512-ZfGvh2SAJf81Y0AkMN3NJtnF0LSQqOXaFEo5DHxBCG9AuxwAHy5HpLtVQXId9A8ihUYqYved1/M1F78EJiDTIA==
+"2048-ts-engine@^1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/2048-ts-engine/-/2048-ts-engine-1.4.0.tgz#e1af9cfde0ce550c99d4812e1a783d627f943d33"
+  integrity sha512-3xBrpAKwAdo/+VH03LOFJO0myntZhjsd9l8aCvC3sFoTVC9yW/msDyz0aU+LR0mDoEMfGVoEsxco7RXgfCQECQ==
 
 "@apollo/client@^3.3.11":
   version "3.3.11"
