@@ -1,4 +1,7 @@
-This project is a clone of a popular game 2048 built bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Introduction
+This project is a demonstration of working with current React stack (React, GraphQL, Next...)
+
+It is heavily relied on [`2048-ts-engine` ](https://www.npmjs.com/package/2048-ts-engine) library, where we can find a logic part for this game. (Processing moves, evaluations etc.)
 
 Try this game yourself! https://2048-clone-next.vercel.app/
 
