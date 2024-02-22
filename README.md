@@ -1,5 +1,5 @@
 # Introduction
-This project is a demonstration of working with current React stack (React, GraphQL, Next...)
+This project is a demonstration of working with current React stack (React, GraphQL, Next...), it was a task I got during the interview to Shoptet.
 
 It is heavily relied on [`2048-ts-engine` ](https://www.npmjs.com/package/2048-ts-engine) library, where we can find a logic part for this game. (Processing moves, evaluations etc.)
 
