@@ -1,13 +1,13 @@
+import { Direction, GameStatus } from '2048-ts-engine/src/types';
+import useGame from 'hooks/useGame';
 import * as React from 'react';
 import { useSwipeable } from 'react-swipeable';
-import useGame from 'hooks/useGame';
-import Tile from './Tile';
-import { StyledBoard, StyledTable } from './styled';
 import Header from './Header';
 import Message from './Message';
-import { Direction, GameStatus } from '2048-ts-engine/src/types';
+import Tile from './Tile';
+import { StyledBoard, StyledTable } from './styled';
 
-const Game: React.FC<{ topScore: number }> = ({ topScore }) => {
+const Game: React.FC<{ topScore?: number }> = ({ topScore }) => {
   const { game, handleStart, handleMove } = useGame();
 
   const handlers = useSwipeable({

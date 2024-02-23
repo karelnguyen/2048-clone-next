@@ -1,23 +1,18 @@
+import { Button } from 'components/Button';
+import SignInForm from 'components/Forms/SignInForm';
+import Game from 'components/Game';
+import ButtonModal from 'components/Modals/ButtonModal';
+import { Score, User } from 'gql/types';
+import { AppProps } from 'next/app';
 import Head from 'next/head';
 import Link from 'next/link';
 import * as React from 'react';
-import { GetStaticProps } from 'next';
-import { AppProps } from 'next/app';
-import { createClient } from 'gql/apolloClient';
-import { ALL_SCORES_QUERY } from 'gql/api/queries/allScores';
-import { AllScoresQuery, AllScoresQueryVariables, Score, SortScoresBy, User } from 'gql/types';
-import ButtonModal from 'components/Modals/ButtonModal';
-import { Button } from 'components/Button';
-import SignInForm from 'components/Forms/SignInForm';
-import LeaderBoard from 'components/LeaderBoard';
 import {
   StyledAuthButtons,
   StyledCentered,
   StyledDescription,
   StyledWrapper,
-  StyledWrapperTitle,
 } from '../styles/styled';
-import { useAuth } from 'hooks/useAuth';
 
 type HomeProps = AppProps & {
   allUsers: User[];
@@ -54,8 +49,8 @@ const Actions: React.FC<{ isAuthenticated: boolean; name: string }> = ({
 };
 
 const Home: React.FC<HomeProps> = (props) => {
-  const { authToken, userName } = useAuth();
-  const { allScores } = props;
+  // const { authToken, userName } = useAuth();
+  // const { allScores } = props;
 
   return (
     <StyledWrapper>
@@ -65,35 +60,12 @@ const Home: React.FC<HomeProps> = (props) => {
       </Head>
 
       <main>
-        <StyledCentered flexDir="column">
-          <StyledWrapperTitle>2048</StyledWrapperTitle>
-        </StyledCentered>
-
-        <LeaderBoard scores={allScores} />
-
-        <Actions isAuthenticated={!!authToken} name={userName} />
+        {/* <LeaderBoard scores={allScores} /> */}
+        {/* <Actions isAuthenticated={!!authToken} name={userName} /> */}
+        <Game topScore={0} />
       </main>
     </StyledWrapper>
   );
-};
-
-export const getServerSideProps: GetStaticProps = async () => {
-  const client = createClient();
-
-  const sortBy = 'score_DESC' as SortScoresBy;
-
-  const {
-    data: { allScores },
-  } = await client.query<AllScoresQuery, AllScoresQueryVariables>({
-    query: ALL_SCORES_QUERY,
-    variables: { first: 10, sortBy },
-    fetchPolicy: 'network-only',
-  });
-  return {
-    props: {
-      allScores,
-    },
-  };
 };
 
 export default Home;

@@ -1,29 +1,29 @@
-import * as React from 'react';
 import { Button } from 'components/Button';
+import * as React from 'react';
 import Label from '../Label';
 import {
   LabelWrapper,
-  StyledTitle,
-  StyledTitleWrapper,
   StyledHeader,
   StyledSubtitle,
+  StyledTitle,
+  StyledTitleWrapper,
 } from './styled';
 
 type HeaderProps = {
   handleStart: () => void;
   score: number;
-  topScore: number;
+  topScore?: number;
 };
 
-const Header: React.FC<HeaderProps> = ({ handleStart, score, topScore }) => {
-  const bestRecord = score > topScore ? score : topScore;
+const Header: React.FC<HeaderProps> = ({ handleStart, score }) => {
+  // const bestRecord = score > topScore ? score : topScore;
   return (
     <StyledHeader>
       <StyledTitleWrapper>
         <StyledTitle>2048</StyledTitle>
         <LabelWrapper>
           <Label score={score} title="score" />
-          <Label score={bestRecord} title="best score" />
+          {/* {topScore && <Label score={bestRecord} title="best score" />} */}
         </LabelWrapper>
       </StyledTitleWrapper>
       <StyledSubtitle>
